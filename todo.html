@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10分でつくるTODOアプリ</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app" class="container mt-5">
+      <h2>10分でつくるTODOアプリ</h2>
+      <div class="input-group mb-4">
+        <input v-model="setupText" type="text" class="form-control" />
+        <button @click="addTodo()" class="btn btn-primary">追加</button>
+      </div>
+      <ul class="list-group" v-for="todo in todos">
+        <li class="list-group-item">
+          <span>{{todo}}</span>
+          <button @click="deleteTodo(todo)" class="btn btn-dark ms-2">x</button>
+        </li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      Vue.createApp({
+        setup() {
+          const setupText = Vue.ref("");
+          const todos = Vue.ref(["洗濯", "ゴミ出し", "食器洗い"]);
+          const addTodo = () => {
+            todos.value.push(setupText.value);
+          };
+          const deleteTodo = (todo) => {
+            const ti = todos.value.indexOf(todo);
+            todos.value.splice(ti, 1);
+          };
+          return {
+            setupText,
+            todos,
+            addTodo,
+            deleteTodo,
+          };
+        },
+      }).mount("#app");
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
